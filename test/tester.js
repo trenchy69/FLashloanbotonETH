@@ -73,7 +73,7 @@ describe("FlashSwap Contract", () => {
       txArbitrage = await FLASHSWAP.startArbitrage(
         BASE_TOKEN_ADDRESS,
         BORROW_AMOUNT,
-        0
+        3
       );
 
       assert(txArbitrage);
