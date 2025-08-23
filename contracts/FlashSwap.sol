@@ -36,6 +36,29 @@ contract UniswapCrossFlash {
     uint256 private constant MAX_INT =
         115792089237316195423570985008687907853269984665640564039457584007913129639935;
 
+    // Access Control
+    address public owner;
+    
+    modifier onlyOwner() {
+        require(msg.sender == owner, "Only owner can execute");
+        _;
+    }
+
+    constructor() {
+        owner = msg.sender;
+        
+        // One-time token approvals
+        IERC20(WETH).safeApprove(address(UNISWAP_ROUTER), MAX_INT);
+        IERC20(USDC).safeApprove(address(UNISWAP_ROUTER), MAX_INT);
+        IERC20(USDT).safeApprove(address(UNISWAP_ROUTER), MAX_INT);
+        IERC20(DAI).safeApprove(address(UNISWAP_ROUTER), MAX_INT);
+
+        IERC20(WETH).safeApprove(address(SUSHI_ROUTER), MAX_INT);
+        IERC20(USDC).safeApprove(address(SUSHI_ROUTER), MAX_INT);
+        IERC20(USDT).safeApprove(address(SUSHI_ROUTER), MAX_INT);
+        IERC20(DAI).safeApprove(address(SUSHI_ROUTER), MAX_INT);
+    }
+
     // FUND SMART CONTRACT
     // Provides a function to allow contract to be funded
     function fundFlashSwapContract(
@@ -74,8 +97,6 @@ contract UniswapCrossFlash {
             path
         )[1];
 
-        console.log("amountRequired", amountRequired/10**6);
-
         // Perform Arbitrage - Swap for another token
         uint256 amountReceived = IUniswapV2Router01(router)
             .swapExactTokensForTokens(
@@ -85,8 +106,6 @@ contract UniswapCrossFlash {
                 address(this), // address to
                 deadline // deadline
             )[1];
-
-        console.log("amountRecieved", amountReceived/10**6);
 
         require(amountReceived > 0, "Aborted Tx: Trade returned zero");
 
@@ -105,17 +124,7 @@ contract UniswapCrossFlash {
 
     // INITIATE ARBITRAGE
     // Begins receiving loan to engage performing arbitrage trades
-    function startArbitrage(address _tokenBorrow, uint256 _amount , uint8 pathflag) external {
-        IERC20(WETH).safeApprove(address(UNISWAP_ROUTER), MAX_INT);
-        IERC20(USDC).safeApprove(address(UNISWAP_ROUTER), MAX_INT);
-        IERC20(USDT).safeApprove(address(UNISWAP_ROUTER), MAX_INT);
-        IERC20(DAI).safeApprove(address(UNISWAP_ROUTER), MAX_INT);
-
-        IERC20(WETH).safeApprove(address(SUSHI_ROUTER), MAX_INT);
-        IERC20(USDC).safeApprove(address(SUSHI_ROUTER), MAX_INT);
-        IERC20(USDT).safeApprove(address(SUSHI_ROUTER), MAX_INT);
-        IERC20(DAI).safeApprove(address(SUSHI_ROUTER), MAX_INT);
-
+    function startArbitrage(address _tokenBorrow, uint256 _amount , uint8 pathflag) external onlyOwner {
         // Get the Factory Pair address for combined tokens
         address pair = IUniswapV2Factory(UNISWAP_FACTORY).getPair(
             _tokenBorrow,
@@ -129,9 +138,6 @@ contract UniswapCrossFlash {
         address token1 = IUniswapV2Pair(pair).token1();
         uint256 amount0Out = _tokenBorrow == token0 ? _amount : 0;
         uint256 amount1Out = _tokenBorrow == token1 ? _amount : 0;
-        console.log(amount0Out,token0);
-        console.log(amount1Out/10**18,token1);
-
 
         // Passing data as bytes so that the 'swap' function knows it is a flashloan
         bytes memory data = abi.encode(_tokenBorrow, _amount, msg.sender, pathflag);
@@ -162,7 +168,6 @@ contract UniswapCrossFlash {
             (address, uint256, address, uint8)
         );
 
-
         // Calculate the amount to repay at the end
         uint256 fee = ((amount * 3 )/ 997) +1 ;
         uint256 amountToRepay = amount + fee;
@@ -172,8 +177,6 @@ contract UniswapCrossFlash {
         // Assign loan amount
         require(amount0 > 0 ? token0 == tokenBorrow : token1 == tokenBorrow, "Incorrect loan token");
         uint256 loanAmount = amount0 > 0 ? amount0 : amount1;
-        //console.log("Loan received:", amount0 > 0 ? amount0 : amount1);
-        //console.log("Token borrowed:", tokenBorrow);
 
         uint256 finalWETH;
 
@@ -192,7 +195,6 @@ contract UniswapCrossFlash {
                 SUSHI_FACTORY,
                 SUSHI_ROUTER
         );} else if (pathflag == 1 ){
-            console.log(DAI);
             uint256 trade2AcquiredDAI = placeTrade(
                 WETH,
                 DAI,
@@ -221,7 +223,6 @@ contract UniswapCrossFlash {
                 SUSHI_FACTORY,
                 SUSHI_ROUTER
         );} else if (pathflag == 3 ){
-            console.log(USDT);
             uint256 trade2AcquiredUSDT = placeTrade(
                 WETH,
                 USDT,
@@ -229,26 +230,31 @@ contract UniswapCrossFlash {
                 SUSHI_FACTORY,
                 SUSHI_ROUTER
         );
-        //     finalWETH = placeTrade(
-        //         USDT,
-        //         WETH,
-        //         trade2AcquiredUSDT,
-        //         UNISWAP_FACTORY,
-        //         UNISWAP_ROUTER
-        // );
+            // FIX: Complete the second trade back to WETH
+            finalWETH = placeTrade(
+                USDT,
+                WETH,
+                trade2AcquiredUSDT,
+                UNISWAP_FACTORY,
+                UNISWAP_ROUTER
+            );
         }
 
-
-        console.log(myAddress);
-        //Check Profitability
-        // bool profCheck = checkProfitability(amountToRepay, finalWETH);
-        // require(profCheck, "Arbitrage not profitable");
+        // Check Profitability
+        bool profCheck = checkProfitability(amountToRepay, finalWETH);
+        require(profCheck, "Arbitrage not profitable");
 
         // Pay Myself
-        // IERC20 otherToken = IERC20(WETH);
-        // otherToken.transfer(myAddress, finalWETH - amountToRepay);
+        IERC20 otherToken = IERC20(WETH);
+        otherToken.transfer(myAddress, finalWETH - amountToRepay);
 
         // Pay Loan Back
         IERC20(tokenBorrow).transfer(pair, amountToRepay);
+    }
+
+    // Emergency function to withdraw tokens
+    function emergencyWithdraw(address token) external onlyOwner {
+        uint256 balance = IERC20(token).balanceOf(address(this));
+        IERC20(token).transfer(owner, balance);
     }
 }
