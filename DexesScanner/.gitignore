@@ -1,0 +1,8 @@
+.env
+config/user_config.json
+data/
+logs/
+__pycache__/
+*.pyc
+*.pyo
+*.db
