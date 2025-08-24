@@ -11,24 +11,24 @@
       },
       "uniswap": {
         "pair_address": "0xA478c2975Ab1Ea89e8196811F51A7B7Ade33eB11",
-        "liquidity_eth": 7747909.481923929,
-        "price": 4762.0226337993845
+        "liquidity_eth": 7737667.353353932,
+        "price": 4749.421996215776
       },
       "sushiswap": {
         "pair_address": "0xC3D03e4F041Fd4cD388c549Ee2A29a9E5075882f",
-        "liquidity_eth": 6321894.34886605,
-        "price": 4762.101821091867
+        "liquidity_eth": 6313484.886515356,
+        "price": 4749.421996446189
       },
       "metrics": {
-        "price_difference_pct": 0.0016628919804120516,
-        "min_liquidity_eth": 6321894.34886605,
-        "total_liquidity_eth": 14069803.83078998,
-        "liquidity_ratio": 0.8159484004834067
+        "price_difference_pct": 4.851394694346909e-09,
+        "min_liquidity_eth": 6313484.886515356,
+        "total_liquidity_eth": 14051152.239869287,
+        "liquidity_ratio": 0.815941626616805
       },
       "priority": "high",
-      "last_checked": 1756031279,
+      "last_checked": 1756032753,
       "rank": 1,
-      "score": 24.096370922221155
+      "score": 24.079708181597972
     },
     {
       "token1": {
@@ -41,24 +41,24 @@
       },
       "uniswap": {
         "pair_address": "0x0d4a11d5EEaaC28EC3F61d100daF4d40471f1852",
-        "liquidity_eth": 8571.631655193602,
-        "price": 4.762560473206658e-09
+        "liquidity_eth": 8582.70768427475,
+        "price": 4.750296087522309e-09
       },
       "sushiswap": {
         "pair_address": "0x06da0fd433C1A5d7a4faa01111c044910A184553",
-        "liquidity_eth": 250.1994135540449,
-        "price": 4.763627841927576e-09
+        "liquidity_eth": 250.52278945612574,
+        "price": 4.751356359799204e-09
       },
       "metrics": {
-        "price_difference_pct": 0.022411657068146174,
-        "min_liquidity_eth": 250.1994135540449,
-        "total_liquidity_eth": 8821.831068747646,
-        "liquidity_ratio": 0.029189239997550246
+        "price_difference_pct": 0.02232013031103624,
+        "min_liquidity_eth": 250.52278945612574,
+        "total_liquidity_eth": 8833.230473730875,
+        "liquidity_ratio": 0.029189248739664518
       },
       "priority": "high",
-      "last_checked": 1756031277,
+      "last_checked": 1756032752,
       "rank": 2,
-      "score": 20.37006277066921
+      "score": 20.369147546808687
     },
     {
       "token1": {
@@ -71,24 +71,24 @@
       },
       "uniswap": {
         "pair_address": "0xa2107FA5B38d9bbd2C461D6EDf11B11A50F6b974",
-        "liquidity_eth": 58644.92390041305,
-        "price": 188.1069662709792
+        "liquidity_eth": 58450.50171890844,
+        "price": 186.85992656274388
       },
       "sushiswap": {
         "pair_address": "0xC40D16476380e4037e6b1A2594cAF6a6cc8Da967",
-        "liquidity_eth": 52847.52462485518,
-        "price": 188.1069672201112
+        "liquidity_eth": 52676.183153434984,
+        "price": 186.8873634143872
       },
       "metrics": {
-        "price_difference_pct": 5.04570354858369e-07,
-        "min_liquidity_eth": 52847.52462485518,
-        "total_liquidity_eth": 111492.44852526824,
-        "liquidity_ratio": 0.9011440566381732
+        "price_difference_pct": 0.01468311164840211,
+        "min_liquidity_eth": 52676.183153434984,
+        "total_liquidity_eth": 111126.68487234342,
+        "liquidity_ratio": 0.9012101111938703
       },
       "priority": "medium",
-      "last_checked": 1756031296,
+      "last_checked": 1756032770,
       "rank": 3,
-      "score": 19.505725328894414
+      "score": 19.652881672453372
     },
     {
       "token1": {
@@ -101,24 +101,24 @@
       },
       "uniswap": {
         "pair_address": "0xCFfDdeD873554F362Ac02f8Fb1f02E5ada10516f",
-        "liquidity_eth": 2307.356926003766,
-        "price": 101.79349094997488
+        "liquidity_eth": 2309.8132662909416,
+        "price": 102.0100132258544
       },
       "sushiswap": {
         "pair_address": "0x31503dcb60119A812feE820bb7042752019F2355",
-        "liquidity_eth": 1903.9672793566117,
-        "price": 101.80864996178502
+        "liquidity_eth": 1906.271637232913,
+        "price": 102.05486554038545
       },
       "metrics": {
-        "price_difference_pct": 0.014891926456860305,
-        "min_liquidity_eth": 1903.9672793566117,
-        "total_liquidity_eth": 4211.324205360378,
-        "liquidity_ratio": 0.825172411731805
+        "price_difference_pct": 0.04396854104091831,
+        "min_liquidity_eth": 1906.271637232913,
+        "total_liquidity_eth": 4216.084903523854,
+        "liquidity_ratio": 0.8252925312417013
       },
       "priority": "medium",
-      "last_checked": 1756031300,
+      "last_checked": 1756032773,
       "rank": 4,
-      "score": 19.27478132322763
+      "score": 19.56614806661769
     },
     {
       "token1": {
@@ -131,24 +131,24 @@
       },
       "uniswap": {
         "pair_address": "0xd3d2E2692501A5c9Ca623199D38826e513033a17",
-        "liquidity_eth": 300799.8293100103,
-        "price": 432.3239027342685
+        "liquidity_eth": 301182.4405025444,
+        "price": 433.42272228343774
       },
       "sushiswap": {
         "pair_address": "0xDafd66636E2561b0284EDdE37e42d192F2844D40",
-        "liquidity_eth": 18630.761905682364,
-        "price": 431.7497819325399
+        "liquidity_eth": 18659.688589349174,
+        "price": 433.0895032953664
       },
       "metrics": {
-        "price_difference_pct": 0.13297535418750014,
-        "min_liquidity_eth": 18630.761905682364,
-        "total_liquidity_eth": 319430.5912156927,
-        "liquidity_ratio": 0.06193740850325127
+        "price_difference_pct": 0.07693998250612931,
+        "min_liquidity_eth": 18659.688589349174,
+        "total_liquidity_eth": 319842.12909189356,
+        "liquidity_ratio": 0.06195476920305896
       },
       "priority": "medium",
-      "last_checked": 1756031294,
+      "last_checked": 1756032768,
       "rank": 5,
-      "score": 16.639440584391256
+      "score": 16.07917367107659
     },
     {
       "token1": {
@@ -176,7 +176,7 @@
         "liquidity_ratio": 0.8590207009744077
       },
       "priority": "medium",
-      "last_checked": 1756031298,
+      "last_checked": 1756032771,
       "rank": 6,
       "score": 15.507865046220275
     },
@@ -191,27 +191,27 @@
       },
       "uniswap": {
         "pair_address": "0xC2aDdA861F89bBB333c90c492cB837741916A225",
-        "liquidity_eth": 591.5858088842258,
-        "price": 3.000649611989805
+        "liquidity_eth": 592.1432529113345,
+        "price": 3.006298734297658
       },
       "sushiswap": {
         "pair_address": "0xBa13afEcda9beB75De5c56BbAF696b880a5A50dD",
-        "liquidity_eth": 160.16205953116116,
-        "price": 2.9985983284605315
+        "liquidity_eth": 160.30061045652735,
+        "price": 3.003780761144441
       },
       "metrics": {
-        "price_difference_pct": 0.06840807952850292,
-        "min_liquidity_eth": 160.16205953116116,
-        "total_liquidity_eth": 751.747868415387,
-        "liquidity_ratio": 0.27073343735752986
+        "price_difference_pct": 0.08382679541024263,
+        "min_liquidity_eth": 160.30061045652735,
+        "total_liquidity_eth": 752.4438633678618,
+        "liquidity_ratio": 0.2707125508369682
       },
       "priority": "medium",
-      "last_checked": 1756031302,
+      "last_checked": 1756032775,
       "rank": 7,
-      "score": 14.555226666226549
+      "score": 14.716269341965885
     }
   ],
-  "last_update": 1756031327,
+  "last_update": 1756032798,
   "discovery_settings": {
     "min_liquidity_eth": 10.0,
     "max_pairs": 100

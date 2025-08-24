@@ -27,7 +27,7 @@ class ScannerTester:
         """Initialize Web3 and all components"""
         try:
             # Initialize Web3 connection
-            logger.info("🔌 Initializing Web3 connection...")
+            logger.info(" Initializing Web3 connection...")
             self.w3 = Web3(Web3.HTTPProvider(settings.WEB3_PROVIDER_URL))
             
             if not self.w3.is_connected():
