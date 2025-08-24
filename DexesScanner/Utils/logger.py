@@ -1,4 +1,3 @@
-# scanner/utils/logger.py
 import logging
 import os
 from datetime import datetime
@@ -25,10 +24,18 @@ class ScannerLogger:
             '%(asctime)s | %(levelname)s | %(message)s'
         )
         
-        # Console handler (for development)
+        # Console handler (for development) - Fixed for Windows Unicode
         console_handler = logging.StreamHandler(sys.stdout)
         console_handler.setLevel(logging.INFO)
         console_handler.setFormatter(simple_formatter)
+        
+        # Fix encoding issues on Windows
+        if sys.platform.startswith('win'):
+            try:
+                console_handler.stream.reconfigure(encoding='utf-8', errors='replace')
+            except:
+                pass  # Fallback for older Python versions
+        
         self.logger.addHandler(console_handler)
         
         # File handler - General logs
@@ -60,20 +67,38 @@ class ScannerLogger:
         error_handler.setFormatter(detailed_formatter)
         self.logger.addHandler(error_handler)
     
+    def _clean_message(self, message):
+        """Clean message of problematic Unicode characters for Windows"""
+        if sys.platform.startswith('win'):
+            # Replace emoji characters with ASCII equivalents
+            replacements = {
+                '🧪': '[TEST]', '✅': '[OK]', '❌': '[ERROR]', '⚠️': '[WARNING]',
+                '🔍': '[SCAN]', '💰': '[PROFIT]', '🌐': '[WEB3]', '💾': '[DB]',
+                '📋': '[CONFIG]', '🎯': '[TARGET]', '⛽': '[GAS]', '📊': '[STATS]',
+                '🚀': '[START]', 'ℹ️': '[INFO]', '💡': '[TIP]', '🔄': '[REFRESH]',
+                '🎉': '[SUCCESS]', '🛑': '[STOP]', '📈': '[UP]', '📉': '[DOWN]'
+            }
+            for emoji, replacement in replacements.items():
+                message = message.replace(emoji, replacement)
+        return message
+    
     def info(self, message, extra_data=None):
         """Log info message with optional extra data"""
+        message = self._clean_message(str(message))
         if extra_data:
             message = f"{message} | Data: {extra_data}"
         self.logger.info(message)
     
     def warning(self, message, extra_data=None):
         """Log warning message"""
+        message = self._clean_message(str(message))
         if extra_data:
             message = f"{message} | Data: {extra_data}"
         self.logger.warning(message)
     
     def error(self, message, error=None, extra_data=None):
         """Log error message with exception details"""
+        message = self._clean_message(str(message))
         if error:
             message = f"{message} | Error: {str(error)}"
         if extra_data:
@@ -82,6 +107,7 @@ class ScannerLogger:
     
     def debug(self, message, extra_data=None):
         """Log debug message"""
+        message = self._clean_message(str(message))
         if extra_data:
             message = f"{message} | Data: {extra_data}"
         self.logger.debug(message)
@@ -119,13 +145,13 @@ class ScannerLogger:
     def startup_log(self):
         """Log scanner startup"""
         self.info("=" * 60)
-        self.info("🚀 DEXES SCANNER STARTING UP")
+        self.info("[START] DEXES SCANNER STARTING UP")
         self.info("=" * 60)
     
     def shutdown_log(self):
         """Log scanner shutdown"""
         self.info("=" * 60)
-        self.info("🛑 DEXES SCANNER SHUTTING DOWN")
+        self.info("[STOP] DEXES SCANNER SHUTTING DOWN")
         self.info("=" * 60)
 
 # Global logger instance
